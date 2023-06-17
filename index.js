@@ -35,7 +35,18 @@ app.get('/info', (req,res) => {
 })
 
 app.get('/api/persons', (req,res) => {
-    res.json(notes)
+    res.json(phone)
+})
+
+app.get('/api/persons/:id', (req,res) => {
+    const id = Number(req.params.id)
+    const phoneNumber = phone.find(item => item.id === id)
+    if(phoneNumber){
+        res.json(phoneNumber)
+    }
+    else{
+        res.status(404).send('Item is not found')
+    }
 })
 
 const PORT = 3001

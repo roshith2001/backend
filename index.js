@@ -1,7 +1,8 @@
 const express = require('express')
+const { finished } = require('stream')
 const app = express()
 
-const phone = [
+let phone = [
     { 
       "id": 1,
       "name": "Arto Hellas", 
@@ -47,6 +48,13 @@ app.get('/api/persons/:id', (req,res) => {
     else{
         res.status(404).send('Item is not found')
     }
+})
+
+app.delete('/api/persons/:id', (req,res) => {
+    const id = Number(req.params.id)
+    phone = phone.filter(item => item.id !== id)
+
+    res.status(204).end()
 })
 
 const PORT = 3001

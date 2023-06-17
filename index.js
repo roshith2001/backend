@@ -1,6 +1,7 @@
 const express = require('express')
-const { finished } = require('stream')
 const app = express()
+
+app.use(express.json())
 
 let phone = [
     { 
@@ -48,6 +49,14 @@ app.get('/api/persons/:id', (req,res) => {
     else{
         res.status(404).send('Item is not found')
     }
+})
+
+app.post('/api/persons', (req,res) => {
+    const id = Math.floor(Math.random()*100)
+    const newPhone = req.body
+    newPhone.id = id
+    phone = phone.concat(newPhone)
+    res.json(phone)
 })
 
 app.delete('/api/persons/:id', (req,res) => {

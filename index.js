@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 
-const notes = [
+const phone = [
     { 
       "id": 1,
       "name": "Arto Hellas", 
@@ -24,8 +24,14 @@ const notes = [
     }
 ]
 
-app.get('/', (req,res) => {
-    res.send('<p>Hello World</p>')
+const date = new Date()
+
+app.get('/info', (req,res) => {
+    res.send(`
+        Phonebook have details for ${phone.length} peoples
+        <br/>
+        ${date.toString()}
+        `)
 })
 
 app.get('/api/persons', (req,res) => {

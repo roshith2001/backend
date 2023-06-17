@@ -24,10 +24,6 @@ const notes = [
     }
 ]
 
-app.get('/', (req,res) => {
-    res.send('<p>Hello World</p>')
-})
-
 app.get('/api/persons', (req,res) => {
     res.json(notes)
 })

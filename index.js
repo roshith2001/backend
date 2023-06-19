@@ -28,8 +28,13 @@ let phone = [
 ]
 
 const date = new Date()
-
-app.use(morgan('tiny'))
+morgan.token('content', function(req,res){
+  if(req.method === 'POST'){
+    return JSON.stringify(req.body)
+  }
+  return null
+})
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :content'))
 
 
 app.get('/info', (req,res) => {

@@ -5,3 +5,7 @@ Content-Type: application/json
     "name": "Kutty Panikkar",
     "number": "974-787-4703"
 }
+
+###
+
+GET http://localhost:3001/api/persons

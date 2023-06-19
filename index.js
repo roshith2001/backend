@@ -1,4 +1,5 @@
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
 
 app.use(express.json())
@@ -27,6 +28,9 @@ let phone = [
 ]
 
 const date = new Date()
+
+app.use(morgan('tiny'))
+
 
 app.get('/info', (req,res) => {
     res.send(`

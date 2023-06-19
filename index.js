@@ -53,8 +53,12 @@ app.get('/api/persons/:id', (req,res) => {
 
 app.post('/api/persons', (req,res) => {
   const newPhone = req.body
+  const duplicate = phone.find(item => item.name === newPhone.name)
     if(!newPhone.name || !newPhone.number){
       res.status(400).json({error: 'Content Missing'})
+    }
+    if(duplicate){
+      res.status(400).json({error: 'Name already in PhoneBook'})
     }
     const id = Math.floor(Math.random()*100)
     newPhone.id = id

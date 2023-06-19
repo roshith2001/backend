@@ -52,8 +52,11 @@ app.get('/api/persons/:id', (req,res) => {
 })
 
 app.post('/api/persons', (req,res) => {
+  const newPhone = req.body
+    if(!newPhone.name || !newPhone.number){
+      res.status(400).json({error: 'Content Missing'})
+    }
     const id = Math.floor(Math.random()*100)
-    const newPhone = req.body
     newPhone.id = id
     phone = phone.concat(newPhone)
     res.json(phone)

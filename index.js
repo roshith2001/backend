@@ -52,8 +52,6 @@ app.get('/info', (req,res) => {
         `)
 })
 
-=======
->>>>>>> ea039f22d6f6033c0f4a2ccc7687fdc2920c9779
 app.get('/api/persons', (req,res) => {
     Note.find({}).then(result => {
       res.json(result)

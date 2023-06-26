@@ -1,9 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
-require('dotenv').config()
 const app = express()
-const Note = require('./models/phonebookdb')
 
 
 app.use(express.json())
@@ -52,43 +50,40 @@ app.get('/info', (req,res) => {
 })
 
 app.get('/api/persons', (req,res) => {
-    Note.find({}).then(result => {
-      res.json(result)
-    })
+    res.json(phone)
 })
 
 app.get('/api/persons/:id', (req,res) => {
-    Note.findById(req.params.id).then(result => {
-      res.json(result)
-    })
-    .catch(error => {
-      console.log('No match found', error.message)
-      res.json(`No match found ${error.message}`)
-    })
+    const id = Number(req.params.id)
+    const phoneNumber = phone.find(item => item.id === id)
+    if(phoneNumber){
+        res.json(phoneNumber)
+    }
+    else{
+        res.status(404).send('Item is not found')
+    }
 })
 
 app.post('/api/persons', (req,res) => {
-  const body = req.body
-    if(!body.name || !body.number){
+  const newPhone = req.body
+  const duplicate = phone.find(item => item.name === newPhone.name)
+    if(!newPhone.name || !newPhone.number){
       res.status(400).json({error: 'Content Missing'})
     }
-  
-    const newEntry = new Note({
-      name: body.name,
-      number: body.number || null
-    })
-    newEntry.save().then(result => {
-      console.log(result)
-      Note.find({}).then(items => {
-        res.json(items)
-      })
-    })
+    if(duplicate){
+      res.status(400).json({error: 'Name already in PhoneBook'})
+    }
+    const id = Math.floor(Math.random()*100)
+    newPhone.id = id
+    phone = phone.concat(newPhone)
+    res.json(phone)
 })
 
 app.delete('/api/persons/:id', (req,res) => {
-    Note.findByIdAndDelete(req.params.id).then(result => {
-      res.json(result)
-    })
+    const id = Number(req.params.id)
+    phone = phone.filter(item => item.id !== id)
+
+    res.status(204).end()
 })
 
 const PORT = process.env.PORT || 3001

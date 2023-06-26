@@ -2,14 +2,10 @@ POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-    "name": "Chathu Nayar",
-    "number": 9048528137
+    "name": "Kutty Krishnan",
+    "number": "974-787-4703"
 }
 
 ###
 
 GET http://localhost:3001/api/persons
-
-###
-
-GET http://localhost:3001/api/persons/64986ba5ecf4605873d01226

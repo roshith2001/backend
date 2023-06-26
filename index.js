@@ -33,7 +33,6 @@ let phone = [
     }
 ]
 
-<<<<<<< HEAD
 const date = new Date()
 morgan.token('content', function(req,res){
   if(req.method === 'POST'){
